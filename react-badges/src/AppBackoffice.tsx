@@ -11,7 +11,7 @@ import AppEntrypoint, { BackofficeIcon } from "./containers/AppEntrypoint";
 import ManagerEngineer from "./views/backoffice/ManagerEngineer";
 
 import { DrawerMenu } from "./layouts/BasicLayout";
-import Managers from "./components/Backoffice/Manager/ManagerData/Managers";
+import Managers from "./components/Backoffice/Manager/ManagerList/Managers";
 
 const menuItems = [
   {

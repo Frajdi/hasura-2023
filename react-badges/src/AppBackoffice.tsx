@@ -11,6 +11,7 @@ import AppEntrypoint, { BackofficeIcon } from "./containers/AppEntrypoint";
 import ManagerEngineer from "./views/backoffice/ManagerEngineer";
 
 import { DrawerMenu } from "./layouts/BasicLayout";
+import Managers from "./components/Backoffice/Manager/ManagerData/Managers";
 
 const menuItems = [
   {
@@ -42,7 +43,7 @@ const AppBackoffice: React.FC = () => (
         {
           path: "managers",
           // element: <ManagerEngineer />
-          element: <h1>Manager</h1>
+          element: <Managers />
         },
         {
           path: "engineers",

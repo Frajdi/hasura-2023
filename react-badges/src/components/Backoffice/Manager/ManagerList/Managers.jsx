@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { LOAD_MANAGERS } from "./QueryManagerList";
 import AddManager from "../AddManager/AddManager";
-import DeleteManager from "../DeleteManager/DeleteManager";
 import { DELETE_MANAGER } from "../DeleteManager/MutationDeleteManager";
 
 const Managers = () => {

@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const LOAD_BADGES = gql`
   query MyQuery {
     badges_definitions {
+      id
       title
       description
       badges_definitions_requirements_definitions(
@@ -13,6 +14,7 @@ export const LOAD_BADGES = gql`
           }
         }
       ) {
+        id
         title
         description
       }

@@ -2,7 +2,10 @@ import { gql } from "@apollo/client";
 
 export const ADD_MANAGER = gql`
   mutation AddManager($name: String!) {
-    insert_users_one(object: { name: $name, roles: ["manager"] }) {
+    insert_users_one(
+      object: { name: $name, roles: ["manager"], is_deleted: false }
+    ) {
+      is_deleted
       id
       name
     }
@@ -14,6 +17,7 @@ export const GET_ENGINEERS = gql`
     engineers {
       id
       name
+      is_deleted
     }
   }
 `;

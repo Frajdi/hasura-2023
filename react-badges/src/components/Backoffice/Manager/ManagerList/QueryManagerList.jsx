@@ -5,6 +5,7 @@ export const LOAD_MANAGERS = gql`
     managers {
       id
       name
+      is_deleted
     }
   }
 `;

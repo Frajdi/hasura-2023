@@ -1,7 +1,12 @@
 import React from "react";
+import ManagerEngineer from "../../../views/backoffice/ManagerEngineer";
 
 const Manager = () => {
-  return <div>Manager</div>;
+  return (
+    <>
+      <ManagerEngineer />
+    </>
+  );
 };
 
 export default Manager;

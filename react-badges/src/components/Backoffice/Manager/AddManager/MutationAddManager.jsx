@@ -8,3 +8,25 @@ export const ADD_MANAGER = gql`
     }
   }
 `;
+
+export const GET_ENGINEERS = gql`
+  query getEngineers {
+    engineers {
+      id
+      name
+    }
+  }
+`;
+
+export const ADD_RELATION = gql`
+  mutation addRelation($engineer: Int!, $manager: Int!) {
+    insert_users_relations_one(
+      object: { engineer: $engineer, manager: $manager }
+    ) {
+      manager
+      engineer
+      created_by
+      created_at
+    }
+  }
+`;

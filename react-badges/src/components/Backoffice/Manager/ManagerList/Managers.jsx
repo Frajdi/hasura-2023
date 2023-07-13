@@ -3,11 +3,13 @@ import { useQuery, useMutation } from "@apollo/client";
 import { LOAD_MANAGERS } from "./QueryManagerList";
 import AddManager from "../AddManager/AddManager";
 import { DELETE_MANAGER } from "../DeleteManager/MutationDeleteManager";
+import { useNavigate } from "react-router-dom";
 
 const Managers = () => {
   const { loading, data, error } = useQuery(LOAD_MANAGERS);
   const [managers, setManagers] = useState([]);
   const [deleteManager] = useMutation(DELETE_MANAGER);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -26,6 +28,10 @@ const Managers = () => {
     }
   };
 
+  const handleNavigate = () => {
+    navigate("/managers/create");
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -34,14 +40,8 @@ const Managers = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const handleAddManager = (newManager) => {
-    setManagers([...managers, newManager]);
-  };
-
   return (
     <div>
-      <h2>Add Manager</h2>
-      <AddManager onAddManager={handleAddManager} />
       <h2>Managers List</h2>
       {managers.map((manager) => (
         <h3 key={manager.id}>
@@ -49,6 +49,7 @@ const Managers = () => {
           <button onClick={(e) => handleDelete(manager.id)}>delete</button>
         </h3>
       ))}
+      <button onClick={handleNavigate}>Create Manager</button>
     </div>
   );
 };

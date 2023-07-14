@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { ADD_MANAGER, ADD_RELATION, GET_ENGINEERS } from "./MutationAddManager";
+import {
+  ADD_MANAGER,
+  ADD_RELATION,
+  GET_ENGINEERS
+} from "../../../../containers/state/ManagersQueries";
 import { useNavigate } from "react-router-dom";
 import { StepLabel, Step, Stepper, TextField, Button } from "@mui/material";
-import { LOAD_MANAGERS } from "../ManagerList/QueryManagerList";
+import { LOAD_MANAGERS } from "../../../../containers/state/ManagersQueries";
 
 const AddManagers = () => {
   const [name, setName] = useState("");

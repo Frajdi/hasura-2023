@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { LOAD_MANAGERS } from "./QueryManagerList";
-import AddManager from "../AddManager/AddManager";
-import { DELETE_MANAGER } from "../DeleteManager/MutationDeleteManager";
+import { LOAD_MANAGERS } from "../../../../containers/state/ManagersQueries";
+import { DELETE_MANAGER } from "../../../../containers/state/ManagersQueries";
 import { useNavigate } from "react-router-dom";
+import TableForm from "../../TableForm";
 
 const Managers = () => {
   const { loading, data, error } = useQuery(LOAD_MANAGERS);
@@ -43,12 +43,7 @@ const Managers = () => {
   return (
     <div>
       <h2>Managers List</h2>
-      {managers.map((manager) => (
-        <h3 key={manager.id}>
-          {manager.name}
-          <button onClick={(e) => handleDelete(manager.id)}>delete</button>
-        </h3>
-      ))}
+      <TableForm data={managers} onDelete={handleDelete} dataType="manager" />
       <button onClick={handleNavigate}>Create Manager</button>
     </div>
   );

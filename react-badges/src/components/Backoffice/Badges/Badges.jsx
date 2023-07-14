@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { LOAD_BADGES } from "../Badges/Graphql/Queries";
+import {
+  LOAD_BADGES,
+  DELETE_BADGE
+} from "../../../containers/state/BadgesQueries";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { DELETE_BADGE } from "./Graphql/Mutations";
 
 const Badges = () => {
   const { data } = useQuery(LOAD_BADGES);
@@ -17,9 +19,11 @@ const Badges = () => {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setBadges(data.badges_definitions);
+      setBadges(data.badges_versions_last);
     }
   }, [data]);
+
+  console.log(data);
 
   const deleteBadgeHandler = (id) => {
     deleteBadge({
@@ -45,13 +49,11 @@ const Badges = () => {
             <div key={index}>
               <h1> {badge.title}</h1>
               <p>{badge.description}</p>
-              <ol>
-                {badge.badges_definitions_requirements_definitions.map(
-                  (requirement, index) => (
-                    <li key={index}>{requirement.description}</li>
-                  )
-                )}
-              </ol>
+              {/* <ol>
+                {badge.requirements.map((requirement, index) => (
+                  <li key={index}>{requirement.description}</li>
+                ))}
+              </ol> */}
               <Button onClick={() => deleteBadgeHandler(badge.id)}>
                 Delete
               </Button>
@@ -59,7 +61,7 @@ const Badges = () => {
           );
         })}
       <Button>
-        <Link to={"/create"}>Add New</Link>
+        <Link to={"/create"}>Add New</Link>{" "}
       </Button>
     </div>
   );

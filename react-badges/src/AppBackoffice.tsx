@@ -11,6 +11,8 @@ import AppEntrypoint, { BackofficeIcon } from "./containers/AppEntrypoint";
 import ManagerEngineer from "./views/backoffice/ManagerEngineer";
 
 import { DrawerMenu } from "./layouts/BasicLayout";
+import Managers from "./components/Backoffice/Manager/ManagerList/Managers";
+import AddManager from "./components/Backoffice/Manager/AddManager/AddManager";
 
 const menuItems = [
   {
@@ -41,7 +43,20 @@ const AppBackoffice: React.FC = () => (
       [
         {
           path: "managers",
-          element: <ManagerEngineer />
+          // element: <ManagerEngineer />
+          element: <Managers />
+        },
+        {
+          path: "/managers/create",
+          element: <AddManager />
+        },
+        {
+          path: "engineers",
+          element: <h1>Engineer</h1>
+        },
+        {
+          path: "badges",
+          element: <h1>Badges</h1>
         }
       ] as RouteProps[]
     }

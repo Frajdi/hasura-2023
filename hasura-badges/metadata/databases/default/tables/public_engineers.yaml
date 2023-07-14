@@ -1,14 +1,34 @@
 table:
   name: engineers
   schema: public
+insert_permissions:
+  - role: backoffice
+    permission:
+      check: {}
+      columns:
+        - is_deleted
+        - name
 select_permissions:
   - role: backoffice
     permission:
       columns:
-        - name
         - id
+        - is_deleted
+        - name
       filter: {}
       limit: 10
       query_root_fields:
         - select
       subscription_root_fields: []
+update_permissions:
+  - role: backoffice
+    permission:
+      columns:
+        - is_deleted
+        - name
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: backoffice
+    permission:
+      filter: {}

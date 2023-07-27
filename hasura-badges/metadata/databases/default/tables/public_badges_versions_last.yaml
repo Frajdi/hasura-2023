@@ -2,6 +2,20 @@ table:
   name: badges_versions_last
   schema: public
 select_permissions:
+  - role: backoffice
+    permission:
+      columns:
+        - created_at
+        - created_by
+        - description
+        - id
+        - is_deleted
+        - requirements
+        - title
+      filter: {}
+      query_root_fields:
+        - select
+      subscription_root_fields: []
   - role: engineer
     permission:
       columns:

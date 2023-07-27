@@ -1,77 +1,49 @@
-import { useState } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import BasicPage from "../../layouts/BasicPage/BasicPage";
-import FakeContent from "../../components/FakeContent";
+import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 
-const GET_MANAGERS = gql`
-  query getManagersAndEngineers {
-    managers {
-      id
-      name
-    }
-    engineers {
-      id
-      name
-    }
-  }
-`;
-
-const ADD_RELATION = gql`
-  mutation addRela($engineer: Int!, $manager: Int!) {
-    insert_users_relations_one(
-      object: { engineer: $engineer, manager: $manager }
-    ) {
-      manager
-      engineer
-      created_by
-      created_at
-    }
-  }
-`;
+import { GET_MANAGERS } from "../../queries/ManagerQueries";
+import TableComp from "../../components/manager-components/table/TableComp";
+import { Link } from "react-router-dom";
+import { Button, TextField } from "@mui/material";
+import { Search } from "@mui/icons-material";
 
 const ManagerEngineer = () => {
-  const [manager, setManager] = useState(null);
-  const [engineer, setEngineer] = useState(null);
-
-  const r1 = useQuery(GET_MANAGERS);
-  const [addRelation, r2] = useMutation(ADD_RELATION);
-
-  const dothis = () => {
-    addRelation({
-      variables: { manager, engineer }
-    });
-  };
-
-  if (r1.loading) return "loading...";
-  if (r1.error) throw r1.error;
+  const [search, setSearch] = useState("");
+  const { loading, data, error, refetch } = useQuery(GET_MANAGERS, {
+    variables: {
+      name: `%${search}%`
+    }
+  });
+  useEffect(() => {
+    refetch();
+  }, [search]);
 
   return (
-    <BasicPage fullpage title="New Connection" subtitle="Engineer to Manager">
-      {manager} - {engineer}
-      <div>
-        <h4>Managers</h4>
-        <select onChange={(e) => setManager(e.target.value)}>
-          {r1.data.managers.map((record) => (
-            <option key={record.id} value={record.id}>
-              {record.name}
-            </option>
-          ))}
-        </select>
+    <>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between"
+        }}
+      >
+        <TextField
+          value={search}
+          label="Search Manager"
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{ display: "flex", maxWidth: "40ch", m: 2, marginBottom: 0 }}
+          InputProps={{
+            startAdornment: <Search />
+          }}
+        />
+        <Link to="/managers/create">
+          <Button variant="outlined" sx={{ m: 2, padding: "10px" }}>
+            Add New Manager
+          </Button>
+        </Link>
       </div>
-      <div>
-        <h4>Engineers</h4>
-        <select onChange={(e) => setEngineer(e.target.value)}>
-          {r1.data.engineers.map((record) => (
-            <option key={record.id} value={record.id}>
-              {record.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button onClick={dothis}>Add</button>
-      <hr />
-      <FakeContent />
-    </BasicPage>
+      <TableComp r1={data} search={search} />
+    </>
   );
 };
 

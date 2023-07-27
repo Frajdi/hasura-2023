@@ -43,13 +43,13 @@ select_permissions:
   - role: backoffice
     permission:
       columns:
-        - title
-        - created_by
-        - id
-        - modified_by
-        - description
         - created_at
+        - created_by
+        - description
+        - id
         - modified_at
+        - modified_by
+        - title
       filter: {}
       limit: 10
       query_root_fields:
